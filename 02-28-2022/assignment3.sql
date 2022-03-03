@@ -235,36 +235,34 @@ SELECT * FROM Guests ORDER BY name ASC;
 SELECT TOP 10 * FROM Sales ORDER BY amount_received DESC;
 
 -- Write a query to return all the values stored in all Lookup Tables - Lookup tables are the tables we reference typically with just an ID and a name. This should be a dynamic combining of all of the tables
-SELECT id,name FROM Locations
-WHERE 1 = 1
-UNION
-SELECT id,name FROM Supplies
-WHERE 1 = 1
-UNION
-SELECT id,name FROM Locations
-WHERE 1 = 1
-UNION
-SELECT id,name FROM Classes
-WHERE 1 = 1
-UNION
-SELECT id,name FROM GuestStatuses
-WHERE 1 = 1
-UNION
-SELECT id,name FROM RoomStatuses;
+-- SELECT id,name FROM Locations
+-- WHERE 1 = 1
+-- UNION
+-- SELECT id,name FROM Supplies
+-- WHERE 1 = 1
+-- UNION
+-- SELECT id,name FROM Locations
+-- WHERE 1 = 1
+-- UNION
+-- SELECT id,name FROM Classes
+-- WHERE 1 = 1
+-- UNION
+-- SELECT id,name FROM GuestStatuses
+-- WHERE 1 = 1
+-- UNION
+-- SELECT id,name FROM RoomStatuses;
+
+SELECT id, name FROM Locations
+UNION ALL SELECT id, name FROM Supplies
+UNION ALL SELECT id, name FROM Classes
+UNION ALL SELECT id, name FROM GuestStatuses
+UNION ALL SELECT id, name FROM RoomStatuses;
+
 
 -- Write a query that returns Guest Classes with Levels and Generate a new column with a label for their level grouping (lvl 1-10, 10-20, etc)
+DECLARE @LevelRangeStep INT = 10;
 SELECT Guests.name, Levels.[value] as level, Classes.name as Class, (
-    SELECT CASE 
-        WHEN Levels.[value] BETWEEN 1 AND 10 THEN 'Level 1-10'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 11-20'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 21-30'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 31-40'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 41-50'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 51-60'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 61-70'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 71-80'
-        WHEN Levels.[value] BETWEEN 11 AND 20 THEN 'Level 81-90'
-        ELSE 'Level 91-100' END
+    'Level ' + CAST((Levels.[value] / @LevelRangeStep * @LevelRangeStep) + 1  AS VARCHAR(10)) + ' to ' + CAST((Levels.[value] / @LevelRangeStep * @LevelRangeStep) + @LevelRangeStep AS VARCHAR(10))
 ) as level_group FROM Guests
 LEFT JOIN Levels
 ON Guests.id = Levels.guest_id

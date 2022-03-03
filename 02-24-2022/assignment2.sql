@@ -14,7 +14,7 @@ CREATE TABLE Roles(
     name VARCHAR(50),
     description VARCHAR(MAX)
 )
-
+~
 
 CREATE TABLE Users(
     id INT IDENTITY(1,1) PRIMARY KEY,

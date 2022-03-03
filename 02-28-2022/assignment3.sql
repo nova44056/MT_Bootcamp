@@ -235,23 +235,6 @@ SELECT * FROM Guests ORDER BY name ASC;
 SELECT TOP 10 * FROM Sales ORDER BY amount_received DESC;
 
 -- Write a query to return all the values stored in all Lookup Tables - Lookup tables are the tables we reference typically with just an ID and a name. This should be a dynamic combining of all of the tables
--- SELECT id,name FROM Locations
--- WHERE 1 = 1
--- UNION
--- SELECT id,name FROM Supplies
--- WHERE 1 = 1
--- UNION
--- SELECT id,name FROM Locations
--- WHERE 1 = 1
--- UNION
--- SELECT id,name FROM Classes
--- WHERE 1 = 1
--- UNION
--- SELECT id,name FROM GuestStatuses
--- WHERE 1 = 1
--- UNION
--- SELECT id,name FROM RoomStatuses;
-
 SELECT id, name FROM Locations
 UNION ALL SELECT id, name FROM Supplies
 UNION ALL SELECT id, name FROM Classes

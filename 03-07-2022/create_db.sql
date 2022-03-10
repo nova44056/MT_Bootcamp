@@ -1,0 +1,1 @@
+CREATE DATABASE mt_bootcamp_assignment_5_uy_seng;
